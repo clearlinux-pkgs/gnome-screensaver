@@ -1,0 +1,3 @@
+Configure miss: XScreenSaverRegister in -lXext
+Configure miss: XScreenSaverRegister in -lXExExt
+Configure miss: SYSTEMD

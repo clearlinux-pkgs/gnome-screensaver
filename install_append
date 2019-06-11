@@ -1,0 +1,2 @@
+mkdir -p %{buildroot}/usr/share/xdg/autostart
+cp src/gnome-screensaver.desktop %{buildroot}/usr/share/xdg/autostart/

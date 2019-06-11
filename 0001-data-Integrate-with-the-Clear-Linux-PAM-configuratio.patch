@@ -1,0 +1,30 @@
+From 1dd25cb58cee3763e567236125b156d12dc66cc1 Mon Sep 17 00:00:00 2001
+From: "Simental Magana, Marcos" <marcos.simental.magana@intel.com>
+Date: Tue, 11 Jun 2019 19:37:40 +0000
+Subject: [PATCH] data: Integrate with the Clear Linux PAM configuration
+
+Signed-off-by: Simental Magana, Marcos <marcos.simental.magana@intel.com>
+---
+ data/gnome-screensaver | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/data/gnome-screensaver b/data/gnome-screensaver
+index 47e65a2..6cf1042 100644
+--- a/data/gnome-screensaver
++++ b/data/gnome-screensaver
+@@ -3,9 +3,9 @@
+ # Fedora Core
+ auth       include	system-auth
+ auth       optional     pam_gnome_keyring.so
+-account    include	system-auth
+-password   include	system-auth
+-session    include	system-auth
++account    include	common-account
++password   include	common-password
++session    include	common-session
+ 
+ # SuSE/Novell
+ #auth       include      common-auth
+-- 
+2.21.0
+
