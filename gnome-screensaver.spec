@@ -4,7 +4,7 @@
 #
 Name     : gnome-screensaver
 Version  : 3.6.1
-Release  : 1
+Release  : 2
 URL      : https://download.gnome.org/sources/gnome-screensaver/3.6/gnome-screensaver-3.6.1.tar.xz
 Source0  : https://download.gnome.org/sources/gnome-screensaver/3.6/gnome-screensaver-3.6.1.tar.xz
 Summary  : No detailed summary available
@@ -105,8 +105,8 @@ man components for the gnome-screensaver package.
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
-export SOURCE_DATE_EPOCH=1560282842
+export LANG=C.UTF-8
+export SOURCE_DATE_EPOCH=1568124928
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -119,14 +119,14 @@ export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 "
 make  %{?_smp_mflags}
 
 %check
-export LANG=C
+export LANG=C.UTF-8
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1560282842
+export SOURCE_DATE_EPOCH=1568124928
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/gnome-screensaver
 cp COPYING %{buildroot}/usr/share/package-licenses/gnome-screensaver/COPYING
