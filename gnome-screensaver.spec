@@ -4,7 +4,7 @@
 #
 Name     : gnome-screensaver
 Version  : 3.6.1
-Release  : 2
+Release  : 4
 URL      : https://download.gnome.org/sources/gnome-screensaver/3.6/gnome-screensaver-3.6.1.tar.xz
 Source0  : https://download.gnome.org/sources/gnome-screensaver/3.6/gnome-screensaver-3.6.1.tar.xz
 Summary  : No detailed summary available
@@ -37,6 +37,7 @@ BuildRequires : pkgconfig(xext)
 BuildRequires : systemd-dev
 BuildRequires : xmlto
 Patch1: 0001-data-Integrate-with-the-Clear-Linux-PAM-configuratio.patch
+Patch2: gnome-desktop-3.36.patch
 
 %description
 gnome-screensaver
@@ -99,14 +100,16 @@ man components for the gnome-screensaver package.
 
 %prep
 %setup -q -n gnome-screensaver-3.6.1
+cd %{_builddir}/gnome-screensaver-3.6.1
 %patch1 -p1
+%patch2 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1568124928
+export SOURCE_DATE_EPOCH=1585852166
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -126,11 +129,11 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1568124928
+export SOURCE_DATE_EPOCH=1585852166
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/gnome-screensaver
-cp COPYING %{buildroot}/usr/share/package-licenses/gnome-screensaver/COPYING
-cp COPYING.LIB %{buildroot}/usr/share/package-licenses/gnome-screensaver/COPYING.LIB
+cp %{_builddir}/gnome-screensaver-3.6.1/COPYING %{buildroot}/usr/share/package-licenses/gnome-screensaver/68c94ffc34f8ad2d7bfae3f5a6b996409211c1b1
+cp %{_builddir}/gnome-screensaver-3.6.1/COPYING.LIB %{buildroot}/usr/share/package-licenses/gnome-screensaver/d4e89d1a1e7812dae053aa8cb891f452891df932
 %make_install
 %find_lang gnome-screensaver
 ## install_append content
@@ -157,8 +160,8 @@ cp src/gnome-screensaver.desktop %{buildroot}/usr/share/xdg/autostart/
 
 %files license
 %defattr(0644,root,root,0755)
-/usr/share/package-licenses/gnome-screensaver/COPYING
-/usr/share/package-licenses/gnome-screensaver/COPYING.LIB
+/usr/share/package-licenses/gnome-screensaver/68c94ffc34f8ad2d7bfae3f5a6b996409211c1b1
+/usr/share/package-licenses/gnome-screensaver/d4e89d1a1e7812dae053aa8cb891f452891df932
 
 %files man
 %defattr(0644,root,root,0755)
