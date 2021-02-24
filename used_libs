@@ -1,5 +1,4 @@
 libX11.so.6
-libXxf86misc.so.1
 libc.so.6
 libcairo.so.2
 libdbus-1.so.3
@@ -13,4 +12,5 @@ libgnomekbdui.so.8
 libgobject-2.0.so.0
 libgtk-3.so.0
 libpam.so.0
+libpthread.so.0
 libxklavier.so.16

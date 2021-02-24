@@ -1,3 +1,4 @@
 Configure miss: XScreenSaverRegister in -lXext
 Configure miss: XScreenSaverRegister in -lXExExt
+Configure miss: XF86MiscSetGrabKeysState in -lXxf86misc
 Configure miss: SYSTEMD
