@@ -4,15 +4,23 @@
 #
 Name     : gnome-screensaver
 Version  : 3.6.1
-Release  : 12
+Release  : 13
 URL      : https://download.gnome.org/sources/gnome-screensaver/3.6/gnome-screensaver-3.6.1.tar.xz
 Source0  : https://download.gnome.org/sources/gnome-screensaver/3.6/gnome-screensaver-3.6.1.tar.xz
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : GPL-2.0 LGPL-2.0
+Requires: gnome-screensaver-bin = %{version}-%{release}
+Requires: gnome-screensaver-data = %{version}-%{release}
+Requires: gnome-screensaver-libexec = %{version}-%{release}
+Requires: gnome-screensaver-license = %{version}-%{release}
+Requires: gnome-screensaver-locales = %{version}-%{release}
+Requires: gnome-screensaver-man = %{version}-%{release}
+BuildRequires : Linux-PAM-dev
 BuildRequires : buildreq-gnome
 BuildRequires : gettext
 BuildRequires : intltool
+BuildRequires : libXScrnSaver-dev
 BuildRequires : perl(XML::Parser)
 BuildRequires : pkgconfig(dbus-glib-1)
 BuildRequires : pkgconfig(gio-2.0)
@@ -24,7 +32,9 @@ BuildRequires : pkgconfig(gtk+-3.0)
 BuildRequires : pkgconfig(libgnomekbdui)
 BuildRequires : pkgconfig(libxklavier)
 BuildRequires : pkgconfig(x11)
+BuildRequires : pkgconfig(xext)
 BuildRequires : systemd-dev
+BuildRequires : xmlto
 Patch1: 0001-data-Integrate-with-the-Clear-Linux-PAM-configuratio.patch
 Patch2: gnome-desktop-3.36.patch
 
@@ -34,6 +44,58 @@ gnome-screensaver
 gnome-screensaver is a screen saver and locker that aims to have
 simple, sane, secure defaults and be well integrated with the desktop.
 It is designed to support:
+
+%package bin
+Summary: bin components for the gnome-screensaver package.
+Group: Binaries
+Requires: gnome-screensaver-data = %{version}-%{release}
+Requires: gnome-screensaver-libexec = %{version}-%{release}
+Requires: gnome-screensaver-license = %{version}-%{release}
+
+%description bin
+bin components for the gnome-screensaver package.
+
+
+%package data
+Summary: data components for the gnome-screensaver package.
+Group: Data
+
+%description data
+data components for the gnome-screensaver package.
+
+
+%package libexec
+Summary: libexec components for the gnome-screensaver package.
+Group: Default
+Requires: gnome-screensaver-license = %{version}-%{release}
+
+%description libexec
+libexec components for the gnome-screensaver package.
+
+
+%package license
+Summary: license components for the gnome-screensaver package.
+Group: Default
+
+%description license
+license components for the gnome-screensaver package.
+
+
+%package locales
+Summary: locales components for the gnome-screensaver package.
+Group: Default
+
+%description locales
+locales components for the gnome-screensaver package.
+
+
+%package man
+Summary: man components for the gnome-screensaver package.
+Group: Default
+
+%description man
+man components for the gnome-screensaver package.
+
 
 %prep
 %setup -q -n gnome-screensaver-3.6.1
@@ -46,7 +108,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1661290889
+export SOURCE_DATE_EPOCH=1664063402
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -66,12 +128,13 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1661290889
+export SOURCE_DATE_EPOCH=1664063402
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/gnome-screensaver
-cp %{_builddir}/gnome-screensaver-%{version}/COPYING %{buildroot}/usr/share/package-licenses/gnome-screensaver/68c94ffc34f8ad2d7bfae3f5a6b996409211c1b1
-cp %{_builddir}/gnome-screensaver-%{version}/COPYING.LIB %{buildroot}/usr/share/package-licenses/gnome-screensaver/d4e89d1a1e7812dae053aa8cb891f452891df932
+cp %{_builddir}/gnome-screensaver-%{version}/COPYING %{buildroot}/usr/share/package-licenses/gnome-screensaver/68c94ffc34f8ad2d7bfae3f5a6b996409211c1b1 || :
+cp %{_builddir}/gnome-screensaver-%{version}/COPYING.LIB %{buildroot}/usr/share/package-licenses/gnome-screensaver/d4e89d1a1e7812dae053aa8cb891f452891df932 || :
 %make_install
+%find_lang gnome-screensaver
 ## install_append content
 mkdir -p %{buildroot}/usr/share/xdg/autostart
 cp src/gnome-screensaver.desktop %{buildroot}/usr/share/xdg/autostart/
@@ -79,3 +142,31 @@ cp src/gnome-screensaver.desktop %{buildroot}/usr/share/xdg/autostart/
 
 %files
 %defattr(-,root,root,-)
+
+%files bin
+%defattr(-,root,root,-)
+/usr/bin/gnome-screensaver
+/usr/bin/gnome-screensaver-command
+
+%files data
+%defattr(-,root,root,-)
+/usr/share/pam.d/gnome-screensaver
+/usr/share/xdg/autostart/gnome-screensaver.desktop
+
+%files libexec
+%defattr(-,root,root,-)
+/usr/libexec/gnome-screensaver-dialog
+
+%files license
+%defattr(0644,root,root,0755)
+/usr/share/package-licenses/gnome-screensaver/68c94ffc34f8ad2d7bfae3f5a6b996409211c1b1
+/usr/share/package-licenses/gnome-screensaver/d4e89d1a1e7812dae053aa8cb891f452891df932
+
+%files man
+%defattr(0644,root,root,0755)
+/usr/share/man/man1/gnome-screensaver-command.1
+/usr/share/man/man1/gnome-screensaver.1
+
+%files locales -f gnome-screensaver.lang
+%defattr(-,root,root,-)
+
