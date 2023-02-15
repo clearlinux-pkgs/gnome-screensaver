@@ -4,7 +4,7 @@
 #
 Name     : gnome-screensaver
 Version  : 3.6.1
-Release  : 19
+Release  : 20
 URL      : https://download.gnome.org/sources/gnome-screensaver/3.6/gnome-screensaver-3.6.1.tar.xz
 Source0  : https://download.gnome.org/sources/gnome-screensaver/3.6/gnome-screensaver-3.6.1.tar.xz
 Summary  : No detailed summary available
